@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bpm-tagging"
+version = "0.2.0"
+description = "Recursive BPM detection and tag writing for music libraries"
+requires-python = ">=3.12"
+dependencies = [
+    "librosa>=0.10.2,<2.0",
+    "mutagen>=1.47,<2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.11,<2.0",
+    "ruff>=0.6,<1.0",
+]
+
+[project.scripts]
+bpm-tagging = "bpm_tagging.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["bpm_tagging*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+exclude = ["bpm_tagging.egg-info"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+packages = ["bpm_tagging"]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
